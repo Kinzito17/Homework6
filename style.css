@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+  }
+
+  body {
+      background-color: #DEE2E6;
+  }
+
+  h2 {
+      font-size: 20px;
+  }
+
+  header {
+      background-color: #264653;
+      color: white;
+      text-align: center;
+      padding: 5px;
+  }
+
+  .list-group-item {
+    background-color: #FFE66D;
+  }
+
+  .city {
+      font-size: 36px;
+      font-weight: 500;
+  }
+
+  .weathnow {
+      margin-bottom: 10px;
+  }
+
+  .humidity {
+      margin
+  }
+
+  #search-cont {
+     margin-top: 10px;
+  }
+
+  #weather-now {
+      margin-top: 10px;
+      border-radius: 5px;
+      padding: 20px;
+      border: 1px solid rgb(101, 99, 99);
+  }
+
+  #forecast5 {
+    margin-top: 10px;
+   
+}
