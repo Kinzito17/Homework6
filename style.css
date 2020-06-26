@@ -16,6 +16,11 @@
       text-align: center;
       padding: 5px;
   }
+  
+  li {
+    background-color: #FFE66D;
+    list-style: none;
+  }
 
   .list-group-item {
     background-color: #FFE66D;
@@ -31,11 +36,20 @@
   }
 
   .humidity {
-      margin
+    margin-bottom: 10px;
   }
+
+#clear-btn {
+    margin-bottom: 10px;
+}
 
   #search-cont {
      margin-top: 10px;
+  }
+
+  #weathericon {
+      width: 75px;
+      height: 75px;
   }
 
   #weather-now {

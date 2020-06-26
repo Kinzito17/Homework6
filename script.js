@@ -2,10 +2,16 @@ var APIKey = "f6e39c7c29177ac5b7d29eb353796094";
 var APIKey1 = "50c75374b0165d598243e090b05e751b";
 var clearEl = document.getElementById("clear-btn");
 
+$("#search-btn").on("click", function(event) {
+  event.preventDefault();
+  var searchCity = $("#city-input").val();
+  $("ul").append("<li>" + searchCity + "</li");
+  $("li").addClass("list-group-item")
+
+
 // function currentWeather() {
 
-//     var city = $("city-input").text();
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Austin&units=imperial&appid=" + APIKey;
+  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&units=imperial&appid=" + APIKey;
     console.log(queryURL);
          $.ajax({
             url: queryURL,
@@ -24,7 +30,6 @@ var clearEl = document.getElementById("clear-btn");
             var iconpic = "https://openweathermap.org/img/w/" + icon + ".png";
             console.log(iconpic)
             $('#weathericon').attr('src', iconpic);
-            // var icon = response.weather.icon;
             // var uvIndex = 
             console.log(temp, humidity, wind);
             $(".city").text(response.name + " " + "(" + month + "/" + day + "/" + year +") ");
@@ -34,13 +39,18 @@ var clearEl = document.getElementById("clear-btn");
             $(".wind").text("Wind Speed: " + wind + " MPH");
           });
 
-    var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast/daily?q=Austin&units=imperial&cnt=7&appid=" + APIKey;
+        });
+
+    var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast/daily?q=Austin&units=imperial&cnt=7&appid=" + APIKey1;
     console.log(queryURL1);
          $.ajax({
             url: queryURL1,
             method: "GET"
           }).then(function(response) {
               console.log(response);
+              
+
+              $("<li>").text().append(".lis-group")
 
         });
 
@@ -52,7 +62,7 @@ var clearEl = document.getElementById("clear-btn");
 
         // }
 
-        // var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
+        // var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&units=imperial&appid=" + APIKey;
 
 
 

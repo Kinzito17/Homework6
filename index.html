@@ -28,32 +28,32 @@
 
         <div class="row">
 
-            <div class="col-lg-3" id="search-cont">
+            <div class="col-md-3" id="search-cont">
 
                 <h2>Search for any City:</h2>
 
                 <div class="form-group form-inline">
-                    <input type="text" class="form-control" id="city-input" placeholder="Enter city name" aria-label="Enter city name">
+                    <input type="text" class="form-control" id="city-input" placeholder="Enter city name"
+                        aria-label="Enter city name">
                     <button class="btn btn-primary" id="search-btn"><i class="fas fa-search"></i></button>
                 </div>
 
-                <button class="btn btn-primary" id="clear-btn"><i class="fas fa-search"></i></button>
+                <button class="btn btn-primary" id="clear-btn">Clear</i></button>
 
-                <ul class="list-group"></ul>
-                <li class="list-group-item">Austin</li>
-                <li class="list-group-item">Phoenix</li>
-                <li class="list-group-item">Los Angeles</li>
-                <li class="list-group-item">New York</li>
+                <ul class="list-group" id="search-list">
+
+                </ul>
 
             </div>
 
-            <div class="col-lg-9">
+            <div class="col-md-9">
 
                 <div id="weather-now">
 
-                    <div class="city weathnow">
-                        <div id="icon"><img id="weathericon" src="" alt="Weather icon"></div>
-                    </div>
+                    <div class="city weathnow"></div>
+
+                    <img id="weathericon" src="" alt="Weather icon">
+
                     <div class="temp weathnow"></div>
                     <div class="humidity weathnow"></div>
                     <div class="wind weathnow"></div>
