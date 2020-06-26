@@ -45,6 +45,10 @@
 
   #search-cont {
      margin-top: 10px;
+     border-radius: 5px;
+    border: 1px solid rgb(101, 99, 99);
+    background-color: white;
+    padding: 5px;
   }
 
   #weathericon {
@@ -57,9 +61,13 @@
       border-radius: 5px;
       padding: 20px;
       border: 1px solid rgb(101, 99, 99);
+      background-color: white;
   }
 
   #forecast5 {
     margin-top: 10px;
-   
+    border-radius: 5px;
+    border: 1px solid rgb(101, 99, 99);
+    background-color: white;
+    padding: 5px;
 }
