@@ -55,6 +55,17 @@
       background-color: tomato;
   }
 
+  .card {
+      margin: 5px;
+      background-color: #0077B6;
+      padding: 5px;
+  }
+
+  .cardImg {
+      height: 100px;
+      width: 100px;
+  }
+
 #clear-btn {
     margin-bottom: 10px;
 }
@@ -86,4 +97,5 @@
     border: 1px solid rgb(101, 99, 99);
     background-color: white;
     padding: 5px;
+    display: flex;
 }

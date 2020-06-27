@@ -63,27 +63,29 @@ $(document).ready(function () {
       method: "GET"
       
       }).then(function (uvresp) {
-        var uvindex = uvresp.value;
-        $(".uvIndex").text("UV Index: " + uvindex);
+        var uvIndex = uvresp.value;
+        $(".uvindex").text("UV Index: " + uvIndex);
+        // $(".uvColor").text(uvindex);
+        // $("p").addClass("uvColor in");
 
         //changes background color based on value
-        if (uvindex <= 3) {
-          $(".uvIndex").addClass("low");
+        if (uvIndex <= 3) {
+          $(".uvColor").addClass("low");
         }
-        else if (uvindex >= 3 || uvindex <= 6) {
-          $(".uvIndex").removeClass("low");
-          $(".uvIndex").addClass("med");
+        else if (uvIndex >= 3 || uvIndex <= 6) {
+          $(".uvColor").removeClass("low");
+          $(".uvColor").addClass("med");
         }
-        else if (uvindex >= 6 || uvindex <= 8) {
-          $(".uvIndex").removeClass("low");
-          $(".uvIndex").removeClass("med");
-          $(".uvIndex").addClass("med-high");
+        else if (uvIndex >= 6 || uvIndex <= 8) {
+          $(".uvColor").removeClass("low");
+          $(".uvColor").removeClass("med");
+          $(".uvColor").addClass("med-high");
         }
         else {
-          $(".uvIndex").removeClass("low");
-          $(".uvIndex").removeClass("med");
-          $(".uvIndex").removeClass("med-high");
-          $(".uvIndex").addClass("danger");
+          $(".uvColor").removeClass("low");
+          $(".uvColor").removeClass("med");
+          $(".uvColor").removeClass("med-high");
+          $(".uvColor").addClass("danger");
         }
       });
 
@@ -100,8 +102,25 @@ $(document).ready(function () {
       method: "GET"
 
     }).then(function (response) {
+      for (var i = 0; i < 5; i++) {
+      var icon = response.daily[i].weather.icon;
+      var iconPic = "https://openweathermap.org/img/w/" + icon + ".png";
 
-      for (var i = 0; i < response.list.length; i++) {
+        $("<div>").addClass("card foreCastCard");
+        $(".forecast").append($(".foreCastCard"));
+
+        $("<h5>").addClass("card-title").text(moment(response.daily[i].dt, "x").format("MMM DO"));
+        $(".foreCastCard").append($(".card-title"));
+
+        $("<img>").attr("src", iconPic).addClass("cardImg");
+        $(".foreCastCard").append($(".cardImg"));
+
+        $("<div>").addClass("card-body");
+        $(".foreCastCard").append($(".card-body"));
+
+        $(".card-body").append($("<p>").addClass("card-text").text("Temperature: " + response.daily[i].temp.day));
+        $(".card-body").append($("<p>").addClass("card-text").text("Humidity: " + response.daily[i].humidity + "%"));
+
 
       }
     });
