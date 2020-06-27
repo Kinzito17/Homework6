@@ -39,6 +39,22 @@
     margin-bottom: 10px;
   }
 
+  .low {
+      background-color: teal;
+  }
+
+  .med {
+    background-color: yellow;
+  }
+
+  .med-high {
+      background-color: orange;
+  }
+
+  .danger {
+      background-color: tomato;
+  }
+
 #clear-btn {
     margin-bottom: 10px;
 }
