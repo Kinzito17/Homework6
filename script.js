@@ -1,12 +1,9 @@
 var APIKey = "f6e39c7c29177ac5b7d29eb353796094";
 
 $(document).ready(function () {
-
   
-  currentWeather("Austin");
+  // currentWeather();
   
-
-
   //allows enter key to be pressed for search function
   $('#city-input').keypress(function (e) {
     if (e.which == 13) {
@@ -18,26 +15,21 @@ $(document).ready(function () {
   //search button creates list item and appends to ul
   $("#search-btn").on("click", function (event) {
     event.preventDefault();
-    var searchCity = $("#city-input").val();
-    $("ul").append("<li>" + searchCity + "</li>").attr("type", "button");
-    $("button").addClass("list-group-item listCity");
+    var searchCity = $("#city-input").val().toUpperCase();
     $('#city-input').val("");
     currentWeather(searchCity);
   });
 
-  // storage
-  //   var storeCity = $("#city-input").val();
-  //   localStorage.setItem("city-input", storeCity);
-  //   var useCity = localStorage.getItem("city-input");
+  function newHistory(searchCity) {
+    $("ul").append("<li class='list-group-item listCity'>" + searchCity + "</li>");
+    $(".listCity").attr("type", "button");
+  }
 
 
-  // allows user to click previous searched city from that session
-  // $("li").on("click", function (event) {
-  //   event.preventDefault();
-  //   var listCity = $("li").val();
-  //   // $('#city-input').val("");
-  //   currentWeather(listCity);
-  // });
+  $(".list-group").on("click", "li", function () {
+    console.log("hi")
+    currentWeather($(this).text());
+  });
 
   //clear button to remove recently searched list
   $("#clear-btn").click(function (event) {
@@ -54,6 +46,13 @@ $(document).ready(function () {
       method: "GET"
 
     }).then(function (response) {
+
+      if (!searchedCities.includes(city)) {
+        searchedCities.push(city);
+        window.localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+        newHistory(city);
+      }
+
       var currentDay = moment().format("dddd, MMMM Do")
       var temp = response.main.temp;
       var humidity = response.main.humidity;
@@ -63,7 +62,7 @@ $(document).ready(function () {
       var icon = response.weather[0].icon;
       var iconpic = "https://openweathermap.org/img/w/" + icon + ".png";
       $('#weathericon').attr('src', iconpic);
-      $(".city").text(response.name + currentDay);
+      $(".city").text(response.name + "  - " + currentDay);
       $("#weathericon").text(iconpic)
       $(".temp").text("Temperature: " + Math.floor(temp) + "°F");
       $(".humidity").text("Humidity: " + humidity + "%");
@@ -147,5 +146,17 @@ $(document).ready(function () {
     });
 
   };
+
+
+
+var searchedCities = JSON.parse(window.localStorage.getItem("searchedCities")) || [];
+
+if (searchedCities.length > 0) {
+  currentWeather(searchedCities[searchedCities.length -1]);
+}
+
+for (var i=0; i < searchedCities.length; i++) {
+  newHistory(searchedCities[i]);
+}
 
 });
