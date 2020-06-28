@@ -59,6 +59,8 @@
       margin: 5px;
       background-color: #0077B6;
       padding: 5px;
+      width: 20%;
+      color: white;
   }
 
   .cardImg {
@@ -68,6 +70,10 @@
 
   .card-text {
     font-size: 18px;
+}
+
+.card-body {
+    padding: 0px;
 }
 
 #clear-btn {

@@ -45,13 +45,13 @@ $(document).ready(function () {
       var wind = response.wind.speed;
       var lon = response.coord.lon;
       var lat = response.coord.lat;
-      // var uvIndex = 
       var icon = response.weather[0].icon;
       var iconpic = "https://openweathermap.org/img/w/" + icon + ".png";
+      console.log(iconpic)
       $('#weathericon').attr('src', iconpic);
       $(".city").text(response.name + " " + "(" + month + "/" + day + "/" + year + ") ");
       $("#weathericon").text(iconpic)
-      $(".temp").text("Temperature: " + temp + "°F");
+      $(".temp").text("Temperature: " + Math.floor(temp) + "°F");
       $(".humidity").text("Humidity: " + humidity + "%");
       $(".wind").text("Wind Speed: " + wind + " MPH");
 
@@ -89,14 +89,14 @@ $(document).ready(function () {
         }
       });
 
-      var latlon = $(lat + "&lon=" + lon).val();
+      var latlon = $(lat + "&lon=" + lon).text();
       forecastWeather(latlon)
     });
   };
 
   function forecastWeather(coord) {
     var foreURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coord + "&exclude=hourly,minutely&units=imperial&appid=" + APIKey;
-    console.log(queryURL);
+    console.log(foreURL);
 
     $.ajax({
       url: foreURL,
@@ -105,10 +105,11 @@ $(document).ready(function () {
     }).then(function (response) {
       console.log(response);
 
-      var icon = response.daily[0].weather.icon;
-      var iconPic = "https://openweathermap.org/img/w/" + icon + ".png";
 
       for (var i = 1; i < 6; i++) {
+
+        var icon = response.daily[i].weather[0].icon;
+        var iconPic = "https://openweathermap.org/img/w/" + icon + ".png";  
 
         var foreCastCard = $("<div>").addClass("card foreCastCard");
         $(".forecast").append(foreCastCard);
@@ -122,7 +123,7 @@ $(document).ready(function () {
         var cardBody = $("<div>").addClass("card-body");
         $(foreCastCard).append(cardBody);
 
-        $(cardBody).append($("<p>").addClass("card-text").text("Temp: " + response.daily[i].temp.day));
+        $(cardBody).append($("<p>").addClass("card-text").text("Temp: " + Math.floor(response.daily[i].temp.day) + "°F"));
         $(cardBody).append($("<p>").addClass("card-text").text("Humidity: " + response.daily[i].humidity + "%"));
 
 
