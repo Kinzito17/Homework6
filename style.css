@@ -18,7 +18,7 @@
       margin-bottom: 5px;
   }
   
-  li {
+  .list-group-item {
     list-style: none;
     background-color: #007bff;
     color: white;
@@ -29,28 +29,13 @@
     margin-bottom: 5px;
   }
 
-  .btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-
   .city {
       font-size: 36px;
       font-weight: 500;
   }
 
-  .list-group-item {
-    background-color: #007bff;
-    color: white;
-  }
-
   .weathnow {
       margin-bottom: 10px;
-  }
-
-  .humidity {
-    margin-bottom: 10px;
   }
 
   .low {
@@ -86,34 +71,29 @@
     font-size: 18px;
 }
 
-.card-body {
+  .card-body {
     padding: 0px;
-}
-
-#clear-btn {
-    margin-bottom: 10px;
-    padding: 6px;
 }
 
   #search-cont {
      margin-top: 10px;
      border-radius: 5px;
-    border: 1px solid rgb(101, 99, 99);
-    background-color: white;
-    padding: 5px;
+     border: 1px solid rgb(101, 99, 99);
+     background-color: white;
+     padding: 5px;
   }
 
   #weathericon {
-      width: 75px;
-      height: 75px;
+     width: 75px;
+     height: 75px;
   }
 
   #weather-now {
-      margin-top: 10px;
-      border-radius: 5px;
-      padding: 20px;
-      border: 1px solid rgb(101, 99, 99);
-      background-color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 20px;
+    border: 1px solid rgb(101, 99, 99);
+    background-color: white;
   }
 
   #forecast5 {
@@ -125,7 +105,4 @@
     display: flex;
 }
 
-#search-btn {
-    padding: 6px;
-}
 
