@@ -2,9 +2,8 @@ var APIKey = "f6e39c7c29177ac5b7d29eb353796094";
 
 $(document).ready(function () {
 
-  var useCity = localStorage.getItem("city-input");
+  
   currentWeather("Austin");
-  currentWeather(useCity);
   
 
 
@@ -22,11 +21,15 @@ $(document).ready(function () {
     var searchCity = $("#city-input").val();
     $("ul").append("<li>" + searchCity + "</li>").attr("type", "button");
     $("button").addClass("list-group-item listCity");
-    var storeCity = $("#city-input").val();
-    localStorage.setItem("city-input", storeCity);
     $('#city-input').val("");
     currentWeather(searchCity);
   });
+
+  // storage
+  //   var storeCity = $("#city-input").val();
+  //   localStorage.setItem("city-input", storeCity);
+  //   var useCity = localStorage.getItem("city-input");
+
 
   // allows user to click previous searched city from that session
   // $("li").on("click", function (event) {
@@ -51,10 +54,7 @@ $(document).ready(function () {
       method: "GET"
 
     }).then(function (response) {
-      var date = new Date(response.dt * 1000);
-      var day = date.getDate();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear();
+      var currentDay = moment().format("dddd, MMMM Do")
       var temp = response.main.temp;
       var humidity = response.main.humidity;
       var wind = response.wind.speed;
@@ -63,7 +63,7 @@ $(document).ready(function () {
       var icon = response.weather[0].icon;
       var iconpic = "https://openweathermap.org/img/w/" + icon + ".png";
       $('#weathericon').attr('src', iconpic);
-      $(".city").text(response.name + " " + "(" + month + "/" + day + "/" + year + ") ");
+      $(".city").text(response.name + currentDay);
       $("#weathericon").text(iconpic)
       $(".temp").text("Temperature: " + Math.floor(temp) + "°F");
       $(".humidity").text("Humidity: " + humidity + "%");
@@ -102,7 +102,7 @@ $(document).ready(function () {
         }
       });
 
-      let latlon = lat + "&lon=" + lon;
+      var latlon = lat + "&lon=" + lon;
       forecastWeather(latlon)
     });
   };
@@ -118,6 +118,8 @@ $(document).ready(function () {
 
     }).then(function (response) {
       console.log(response);
+
+      $(".forecast").empty();
 
       for (var i = 1; i < 6; i++) {
 
