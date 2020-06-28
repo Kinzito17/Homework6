@@ -1,7 +1,12 @@
 var APIKey = "f6e39c7c29177ac5b7d29eb353796094";
 
 $(document).ready(function () {
+
+  var useCity = localStorage.getItem("city-input");
   currentWeather("Austin");
+  currentWeather(useCity);
+  
+
 
   //allows enter key to be pressed for search function
   $('#city-input').keypress(function (e) {
@@ -15,11 +20,21 @@ $(document).ready(function () {
   $("#search-btn").on("click", function (event) {
     event.preventDefault();
     var searchCity = $("#city-input").val();
-    $("ul").append("<li>" + searchCity + "</li>");
-    $("li").addClass("list-group-item");
+    $("ul").append("<li>" + searchCity + "</li>").attr("type", "button");
+    $("button").addClass("list-group-item listCity");
+    var storeCity = $("#city-input").val();
+    localStorage.setItem("city-input", storeCity);
     $('#city-input').val("");
     currentWeather(searchCity);
   });
+
+  // allows user to click previous searched city from that session
+  // $("li").on("click", function (event) {
+  //   event.preventDefault();
+  //   var listCity = $("li").val();
+  //   // $('#city-input').val("");
+  //   currentWeather(listCity);
+  // });
 
   //clear button to remove recently searched list
   $("#clear-btn").click(function (event) {
@@ -47,14 +62,12 @@ $(document).ready(function () {
       var lat = response.coord.lat;
       var icon = response.weather[0].icon;
       var iconpic = "https://openweathermap.org/img/w/" + icon + ".png";
-      console.log(iconpic)
       $('#weathericon').attr('src', iconpic);
       $(".city").text(response.name + " " + "(" + month + "/" + day + "/" + year + ") ");
       $("#weathericon").text(iconpic)
       $(".temp").text("Temperature: " + Math.floor(temp) + "°F");
       $(".humidity").text("Humidity: " + humidity + "%");
       $(".wind").text("Wind Speed: " + wind + " MPH");
-
 
       //query for uv index    
       var uvURL = "https://api.openweathermap.org/data/2.5/uvi?appid=f6e39c7c29177ac5b7d29eb353796094&lat=" + lat + "&lon=" + lon;
@@ -89,13 +102,14 @@ $(document).ready(function () {
         }
       });
 
-      var latlon = $(lat + "&lon=" + lon).text();
+      let latlon = lat + "&lon=" + lon;
       forecastWeather(latlon)
     });
   };
 
-  function forecastWeather(coord) {
-    var foreURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coord + "&exclude=hourly,minutely&units=imperial&appid=" + APIKey;
+  //query for 5 day forecast
+  function forecastWeather(latlon) {
+    var foreURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latlon + "&exclude=hourly,minutely&units=imperial&appid=" + APIKey;
     console.log(foreURL);
 
     $.ajax({
@@ -104,7 +118,6 @@ $(document).ready(function () {
 
     }).then(function (response) {
       console.log(response);
-
 
       for (var i = 1; i < 6; i++) {
 

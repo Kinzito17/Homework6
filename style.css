@@ -15,20 +15,34 @@
       color: white;
       text-align: center;
       padding: 5px;
+      margin-bottom: 5px;
   }
   
   li {
-    background-color: #FFE66D;
     list-style: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    font-size: 18px;
+    margin-bottom: 5px;
   }
 
-  .list-group-item {
-    background-color: #FFE66D;
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
   }
 
   .city {
       font-size: 36px;
       font-weight: 500;
+  }
+
+  .list-group-item {
+    background-color: #007bff;
+    color: white;
   }
 
   .weathnow {
