@@ -1,9 +1,10 @@
 var APIKey = "f6e39c7c29177ac5b7d29eb353796094";
 
 $(document).ready(function () {
-  
-  // currentWeather();
-  
+
+  currentWeather(searchedCities);
+  currentWeather("AUSTIN");
+
   //allows enter key to be pressed for search function
   $('#city-input').keypress(function (e) {
     if (e.which == 13) {
@@ -12,7 +13,7 @@ $(document).ready(function () {
     }
   });
 
-  //search button creates list item and appends to ul
+  //search button starts weather search
   $("#search-btn").on("click", function (event) {
     event.preventDefault();
     var searchCity = $("#city-input").val().toUpperCase();
@@ -20,6 +21,7 @@ $(document).ready(function () {
     currentWeather(searchCity);
   });
 
+  //creates list item and appends to ul
   function newHistory(searchCity) {
     $("ul").append("<li class='list-group-item listCity'>" + searchCity + "</li>");
     $(".listCity").attr("type", "button");
@@ -27,7 +29,6 @@ $(document).ready(function () {
 
 
   $(".list-group").on("click", "li", function () {
-    console.log("hi")
     currentWeather($(this).text());
   });
 
@@ -36,7 +37,6 @@ $(document).ready(function () {
     event.preventDefault();
     $("ul").empty();
   });
-
 
   //query for current weather
   function currentWeather(city) {
@@ -77,32 +77,31 @@ $(document).ready(function () {
       }).then(function (uvresp) {
         var uvIndex = uvresp.value;
         $(".uvindex").text("UV Index: " + uvIndex);
-        // $(".uvColor").text(uvindex);
-        // $("p").addClass("uvColor in");
 
         //changes background color based on value
         if (uvIndex <= 3) {
-          $(".uvColor").addClass("low");
+          $(".uvindex").addClass("low");
         }
         else if (uvIndex >= 3 || uvIndex <= 6) {
-          $(".uvColor").removeClass("low");
-          $(".uvColor").addClass("med");
+          $(".uvindex").removeClass("low");
+          $(".uvindex").addClass("med");
         }
         else if (uvIndex >= 6 || uvIndex <= 8) {
-          $(".uvColor").removeClass("low");
-          $(".uvColor").removeClass("med");
-          $(".uvColor").addClass("med-high");
+          $(".uvindex").removeClass("low");
+          $(".uvindex").removeClass("med");
+          $(".uvindex").addClass("med-high");
         }
         else {
-          $(".uvColor").removeClass("low");
-          $(".uvColor").removeClass("med");
-          $(".uvColor").removeClass("med-high");
-          $(".uvColor").addClass("danger");
+          $(".uvindex").removeClass("low");
+          $(".uvindex").removeClass("med");
+          $(".uvindex").removeClass("med-high");
+          $(".uvindex").addClass("danger");
         }
       });
 
       var latlon = lat + "&lon=" + lon;
       forecastWeather(latlon)
+
     });
   };
 
@@ -123,7 +122,7 @@ $(document).ready(function () {
       for (var i = 1; i < 6; i++) {
 
         var icon = response.daily[i].weather[0].icon;
-        var iconPic = "https://openweathermap.org/img/w/" + icon + ".png";  
+        var iconPic = "https://openweathermap.org/img/w/" + icon + ".png";
 
         var foreCastCard = $("<div>").addClass("card foreCastCard");
         $(".forecast").append(foreCastCard);
@@ -140,23 +139,20 @@ $(document).ready(function () {
         $(cardBody).append($("<p>").addClass("card-text").text("Temp: " + Math.floor(response.daily[i].temp.day) + "°F"));
         $(cardBody).append($("<p>").addClass("card-text").text("Humidity: " + response.daily[i].humidity + "%"));
 
-
       }
 
     });
 
   };
 
+  var searchedCities = JSON.parse(window.localStorage.getItem("searchedCities")) || [];
 
+  if (searchedCities.length > 0) {
+    currentWeather(searchedCities[searchedCities.length - 1]);
+  }
 
-var searchedCities = JSON.parse(window.localStorage.getItem("searchedCities")) || [];
-
-if (searchedCities.length > 0) {
-  currentWeather(searchedCities[searchedCities.length -1]);
-}
-
-for (var i=0; i < searchedCities.length; i++) {
-  newHistory(searchedCities[i]);
-}
+  for (var i = 0; i < searchedCities.length; i++) {
+    newHistory(searchedCities[i]);
+  }
 
 });
